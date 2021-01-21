@@ -2,7 +2,7 @@
 
 # 测试不同数据量的FastFair的读写性能: YCSB uniform
 
-LoadDatas="100000 1000000 10000000 100000000"
+LoadDatas="100000 1000000 10000000 100000000 1000000000"
 DBs="pgm alex xindex"
 WorkLoadsDir="./include/ycsb/workloads"
 ExecDir="./build"
@@ -31,4 +31,4 @@ function OperateDiffDB() {
 }
 
 OperateDiffLoad
-OperateDiffDB
+#OperateDiffDB
