@@ -393,7 +393,7 @@ int YCSB_Run(ycsbc::KvDB *db, ycsbc::CoreWorkload *wl, const int num_ops,
       // std::cerr << "Trans: " << i << "\r";
       if(is_loading) {
         auto duration = timer.End<std::chrono::nanoseconds>();
-        std::cout << "op " << i << " :average load latency: " << 1.0 * duration / 10000 << " ns." <<std::endl;
+        //std::cout << "op " << i << " :average load latency: " << 1.0 * duration / 10000 << " ns." <<std::endl;
       }
       // std::cout << "average load latency: " << duration << std::endl;
       timer.Start();
@@ -402,7 +402,7 @@ int YCSB_Run(ycsbc::KvDB *db, ycsbc::CoreWorkload *wl, const int num_ops,
   }
   if(is_loading) {
     auto duration = timer.End();
-    std::cout << "op " << num_ops <<  " :average load latency: " << 1.0 * duration / 10000<< std::endl;
+    //std::cout << "op " << num_ops <<  " :average load latency: " << 1.0 * duration / 10000<< std::endl;
   }
   std::cerr << "Trans: " << num_ops <<std::endl;
   return oks;
