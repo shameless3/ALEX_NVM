@@ -2,7 +2,7 @@
 
 # 测试不同数据量的FastFair的读写性能: YCSB uniform
 
-LoadDatas="100000 1000000 10000000"
+LoadDatas="100000 1000000 10000000 100000000"
 DBs="pgm alex xindex"
 WorkLoadsDir="./include/ycsb/workloads"
 ExecDir="./build"
@@ -20,8 +20,8 @@ function OperateDiffLoad() {
 }
 
 function OperateDiffDB() {
-    RecordCount="10000000"
-    sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_read.spec
+    RecordCount="100000000"
+    sed -r -i "s/recordcount=.*/reWcordcount=$RecordCount/1" ${WorkLoadsDir}/workload_read.spec
     sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_insert.spec
     for DBName in $DBs;
     do
@@ -30,5 +30,5 @@ function OperateDiffDB() {
     done
 }
 
-# OperateDiffLoad
+OperateDiffLoad
 OperateDiffDB
