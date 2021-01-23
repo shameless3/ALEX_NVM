@@ -34,8 +34,8 @@ const char *workloads[] = {
   // "workloada_insert_50.spec",
   // "workloada_insert_80.spec",
   // "workloada_insert_100.spec",
-  "workload_read.spec",
-  "workload_insert.spec",
+  // "workload_read.spec",
+  "workload_test3.spec",
 
 };
 
