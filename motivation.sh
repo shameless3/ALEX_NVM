@@ -39,5 +39,5 @@ function OperateDiffDB() {
 }
 
 #OperateDiffLoad
-sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_test3.spec
+sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
 OperateDiffDB
