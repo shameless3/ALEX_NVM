@@ -24,13 +24,11 @@ function OperateDiffLoad() {
 
 function OperateDiffDB() {
     RecordCount="100000000"
-    sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_read.spec
-    sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_insert.spec
+    sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_test3.spec
     for writerate in writerates;
     do
         readrate=1-writerate
-        sed -r -i "s/recordcount=.*/readproportion=$readrate/1" ${WorkLoadsDir}/workload_read.spec
-        sed -r -i "s/recordcount=.*/writeproportion=$writerate/1" ${WorkLoadsDir}/workload_read.spec
+        sed -r -i "s/recordcount=.*/writeproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
         for DBName in $DBs;
         do
             ${ExecDir}/ycsb -db $DBName -threads 1 -P $WorkLoadsDir
