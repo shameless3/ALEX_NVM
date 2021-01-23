@@ -28,7 +28,7 @@ function OperateDiffDB() {
     for writerate in $writerates;
     do
         readrate=1-writerate
-        sed -r -i "s/recordcount=.*/writeproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
+        sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
         sed -r -i "s/recordcount=.*/readproportion=$readrate/1" ${WorkLoadsDir}/workload_test3.spec
         for DBName in $DBs;
         do
