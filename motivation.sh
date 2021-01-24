@@ -28,8 +28,8 @@ function OperateDiffDB() {
     for writerate in $writerates;
     do
         readrate=1-writerate
-        sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
-        sed -r -i "s/recordcount=.*/readproportion=$readrate/1" ${WorkLoadsDir}/workload_test3.spec
+        sed -r -i "s/insertproportiont=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
+        sed -r -i "s/readproportion=.*/readproportion=$readrate/1" ${WorkLoadsDir}/workload_test3.spec
         for DBName in $DBs;
         do
             ${ExecDir}/ycsb -db $DBName -threads 1 -P $WorkLoadsDir      
@@ -39,5 +39,5 @@ function OperateDiffDB() {
 }
 
 #OperateDiffLoad
-sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
+#sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
 OperateDiffDB
