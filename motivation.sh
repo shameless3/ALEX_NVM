@@ -9,10 +9,9 @@ ExecDir="./build"
 DBName="fastfair"
 RecordCount="10000000"
 
-loop = "0 1 2 3 4 5 6 7 8 9"
-index = "0"
 writerates="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0"
-readrates="1.0 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 0.1 0"
+writerate=0
+readrate=1.0
 
 function OperateDiffLoad() {
     for RecordCount in $LoadDatas;
@@ -27,10 +26,11 @@ function OperateDiffLoad() {
 function OperateDiffDB() {
     RecordCount="100000000"
     sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" ${WorkLoadsDir}/workload_test3.spec
-    for index  in $loop;
+    for writerate in $writerates
     do
-        sed -r -i "s/insertproportiont=.*/insertproportion=${writerates[index]}/1" ${WorkLoadsDir}/workload_test3.spec
-        sed -r -i "s/readproportion=.*/readproportion=${readrates[index]}/1" ${WorkLoadsDir}/workload_test3.spec
+        readrate=`expr 1-writerate`
+        sed -r -i "s/insertproportiont=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
+        sed -r -i "s/readproportion=.*/readproportion=$readrate/1" ${WorkLoadsDir}/workload_test3.spec
         for DBName in $DBs;
         do
             ${ExecDir}/ycsb -db $DBName -threads 1 -P $WorkLoadsDir      
@@ -40,5 +40,4 @@ function OperateDiffDB() {
 }
 
 #OperateDiffLoad
-#sed -r -i "s/recordcount=.*/insertproportion=$writerate/1" ${WorkLoadsDir}/workload_test3.spec
 OperateDiffDB
