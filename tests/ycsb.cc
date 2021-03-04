@@ -36,6 +36,7 @@ const char *workloads[] = {
   // "workloada_insert_100.spec",
   // "workload_read.spec",
   "workload_test3.spec",
+  // "workload_scan.spec"
 };
 
 #define ArrayLen(arry) (sizeof(arry) / sizeof(arry[0]))
