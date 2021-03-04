@@ -5,6 +5,7 @@
 LoadDatas="100000 1000000 10000000 100000000 1000000000"
 DBs="fastfair pgm alex xindex"
 WorkLoadsDir="./include/ycsb/workloads"
+InsertRatioDir="./include/ycsb/insert_ratio"
 ExecDir="./build"
 DBName="fastfair"
 RecordCount="10000000"
@@ -40,5 +41,14 @@ function OperateDiffDB() {
     done
 }
 
+function OperateDiffDB2() {
+    for DBName in $DBs;
+    do
+        ${ExecDir}/ycsb -db $DBName -threads 1 -P $InsertRatioDir 
+        sleep 60
+    done
+}
+
 # OperateDiffLoad
-OperateDiffDB
+# OperateDiffDB
+OperateDiffDB2

@@ -1,8 +1,8 @@
 #!/bin/bash
-RecordCount=10000000
+RecordCount=100000000
 OpCount=1000000
-Distribute="zipfian"
-WorkLoads="0 10 20 50 80 100"
+Distribute="uniform"
+WorkLoads="0 10 20 30 40 50 60 70 80 90 100"
 if [ $# -ge 1 ]; then
     RecordCount=$1
 fi
