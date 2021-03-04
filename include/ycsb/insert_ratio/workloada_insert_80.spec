@@ -17,5 +17,5 @@ updateproportion=0
 scanproportion=0
 insertproportion=0.8
 
-requestdistribution=zipfian
+requestdistribution=uniform
 

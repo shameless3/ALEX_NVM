@@ -14,6 +14,7 @@ fi
 for workload in $WorkLoads; do
     sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" workloada_insert_${workload}.spec
     sed -r -i "s/operationcount=.*/operationcount=$OpCount/1" workloada_insert_${workload}.spec
+    sed -r -i "s/requestdistribution=.*/requestdistribution=$Distribute/1" workloada_insert_${workload}.spec
 done
 
 if [ $# -ge 3 ]; then
