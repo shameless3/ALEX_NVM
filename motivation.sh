@@ -51,5 +51,5 @@ function OperateDiffDB2() {
 
 # OperateDiffLoad
 # OperateDiffDB
-# OperateDiffDB2
-${ExecDir}/ycsb -db pgm -threads 1 -P $InsertRatioDir
+OperateDiffDB2
+# ${ExecDir}/ycsb -db pgm -threads 1 -P $InsertRatioDir
