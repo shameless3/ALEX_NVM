@@ -28,7 +28,7 @@ const char *workloads[] = {
   // "workloadd.spec",
   // "workloade.spec",
   // "workloadf.spec",
-  //"workloada_insert_0.spec",
+  "workloada_insert_0.spec",
   //"workloada_insert_10.spec",
   //"workloada_insert_20.spec",
   //"workloada_insert_30.spec",
@@ -41,7 +41,7 @@ const char *workloads[] = {
   //"workloada_insert_100.spec",
   //"workload_read.spec",
   //"workload_test3.spec",
-  "workload_scan.spec"
+  //"workload_scan.spec"
 };
 
 #define ArrayLen(arry) (sizeof(arry) / sizeof(arry[0]))
@@ -163,6 +163,12 @@ public:
   {
     NVM::show_stat();
   }
+
+  void Begin_trans()
+  {
+    pgm_->trans_to_read();
+  }
+
   int Put(uint64_t key, uint64_t value) 
   {
     pgm_->insert(key, (char *)value);
@@ -476,6 +482,7 @@ int main(int argc, const char *argv[])
       total_ops = stoi(props[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
       cerr << props["dbname"] << " start \t" << workloads[i] << "\t: ops " << total_ops << endl;
       utils::Timer<double> timer;
+      db->Begin_trans();
       timer.Start();
       for (int i = 0; i < num_threads; ++i) {
           actual_ops.emplace_back(async(launch::async,
