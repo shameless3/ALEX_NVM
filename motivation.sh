@@ -3,7 +3,7 @@
 # 测试不同数据量的FastFair的读写性能: YCSB uniform
 
 LoadDatas="100000 1000000 10000000 100000000 1000000000"
-DBs="fastfair pgm alex xindex"
+DBs="xindex fastfair pgm alex"
 WorkLoadsDir="./include/ycsb/workloads"
 InsertRatioDir="./include/ycsb/insert_ratio"
 ExecDir="./build"
