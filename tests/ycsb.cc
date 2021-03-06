@@ -29,19 +29,25 @@ const char *workloads[] = {
   // "workloade.spec",
   // "workloadf.spec",
   //"workloada_insert_0.spec",
+  "workloada_insert_0_150m.spec",
+  "workloada_insert_0_200m.spec",
   //"workloada_insert_10.spec",
   //"workloada_insert_20.spec",
   //"workloada_insert_30.spec",
   //"workloada_insert_40.spec",
   //"workloada_insert_50.spec",
+  "workloada_insert_50_150m.spec",
+  "workloada_insert_50_200m.spec",
   //"workloada_insert_60.spec",
   //"workloada_insert_70.spec",
   //"workloada_insert_80.spec",
   //"workloada_insert_90.spec",
   //"workloada_insert_100.spec",
+  "workloada_insert_100_150m.spec",
+  "workloada_insert_100_200m.spec",
   //"workload_read.spec",
   //"workload_test3.spec",
-  "workload_scan.spec"
+  //"workload_scan.spec"
 };
 
 #define ArrayLen(arry) (sizeof(arry) / sizeof(arry[0]))
