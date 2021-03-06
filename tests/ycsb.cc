@@ -164,10 +164,10 @@ public:
     NVM::show_stat();
   }
 
-  void Begin_trans()
-  {
-    pgm_->trans_to_read();
-  }
+  // void Begin_trans()
+  // {
+  //   pgm_->trans_to_read();
+  // }
 
   int Put(uint64_t key, uint64_t value) 
   {
