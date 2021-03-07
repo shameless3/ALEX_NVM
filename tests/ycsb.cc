@@ -28,22 +28,22 @@ const char *workloads[] = {
   // "workloadd.spec",
   // "workloade.spec",
   // "workloadf.spec",
-  //"workloada_insert_0.spec",
-  "workloada_insert_0_150m.spec",
+  "workloada_insert_0.spec",
+  //"workloada_insert_0_150m.spec",
   //"workloada_insert_0_200m.spec",
   //"workloada_insert_10.spec",
   //"workloada_insert_20.spec",
   //"workloada_insert_30.spec",
   //"workloada_insert_40.spec",
   //"workloada_insert_50.spec",
-  "workloada_insert_50_150m.spec",
+  //"workloada_insert_50_150m.spec",
   //"workloada_insert_50_200m.spec",
   //"workloada_insert_60.spec",
   //"workloada_insert_70.spec",
   //"workloada_insert_80.spec",
   //"workloada_insert_90.spec",
   //"workloada_insert_100.spec",
-  "workloada_insert_100_150m.spec",
+  //"workloada_insert_100_150m.spec",
   //"workloada_insert_100_200m.spec",
   //"workload_read.spec",
   //"workload_test3.spec",
@@ -170,10 +170,10 @@ public:
     NVM::show_stat();
   }
 
-  // void Begin_trans()
-  // {
-  //   pgm_->trans_to_read();
-  // }
+  void Begin_trans()
+  {
+    pgm_->trans_to_read();
+  }
 
   int Put(uint64_t key, uint64_t value) 
   {
