@@ -984,7 +984,7 @@ class Alex {
   // Directly returns a pointer to the payload found through find(key)
   // This avoids the overhead of creating an iterator
   // Returns null pointer if there is no exact match of the key
-  P* get_payload(const T& key,int *node_count) const {
+  P* get_payload(const T& key,int *node_count = nullptr) const {
     stats_.num_lookups++;
     //wjy : 统计访问节点个数
     std::vector<TraversalNode> traversal_path;
