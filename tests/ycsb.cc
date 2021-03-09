@@ -287,7 +287,7 @@ public:
 
   void Info()
   {
-    
+
   }
 
   int Put(uint64_t key, uint64_t value) 
@@ -334,7 +334,7 @@ class AlexDB : public ycsbc::KvDB  {
 #endif
   typedef alex::Alex<KEY_TYPE, PAYLOAD_TYPE, alex::AlexCompare, Alloc> alex_t;
 public:
-  AlexDB(): alex_(nullptr) ,node_sum(0){}
+  AlexDB(): alex_(nullptr){}
   AlexDB(alex_t *alex): alex_(alex) {}
   virtual ~AlexDB() {
     delete alex_;
