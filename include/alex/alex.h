@@ -984,9 +984,12 @@ class Alex {
   // Directly returns a pointer to the payload found through find(key)
   // This avoids the overhead of creating an iterator
   // Returns null pointer if there is no exact match of the key
-  P* get_payload(const T& key) const {
+  P* get_payload(const T& key,int *node_count) const {
     stats_.num_lookups++;
-    data_node_type* leaf = get_leaf(key);
+    //wjy : 统计访问节点个数
+    std::vector<TraversalNode> traversal_path;
+    data_node_type* leaf = get_leaf(key,&traversal_path);
+    *node_count = traversal_path.size()-1;
     int idx = leaf->find_key(key);
     if (idx < 0) {
       return nullptr;

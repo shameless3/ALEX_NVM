@@ -333,7 +333,7 @@ class AlexDB : public ycsbc::KvDB  {
 #endif
   typedef alex::Alex<KEY_TYPE, PAYLOAD_TYPE, alex::AlexCompare, Alloc> alex_t;
 public:
-  AlexDB(): alex_(nullptr) {}
+  AlexDB(): alex_(nullptr) ,node_sum(0){}
   AlexDB(alex_t *alex): alex_(alex) {}
   virtual ~AlexDB() {
     delete alex_;
@@ -348,6 +348,8 @@ public:
   void Info()
   {
     NVM::show_stat();
+    double avg = sum / 1000000;
+    std::cout << "avg count:" << avg << endl;
   }
 
   int Put(uint64_t key, uint64_t value) 
@@ -357,9 +359,11 @@ public:
   }
   int Get(uint64_t key, uint64_t &value)
   {
-      value = *(alex_->get_payload(key));
-      // assert(value == key);
-      return 1;
+    int count = 0;
+    value = *(alex_->get_payload(key,&count));
+    sum += count;
+    // assert(value == key);
+    return 1;
   }
   int Update(uint64_t key, uint64_t value) {
       uint64_t *addrs = (alex_->get_payload(key));
@@ -383,6 +387,7 @@ public:
     // std::cerr << "Clevel average cost: " << Common::timers["Clevel_times"].avg_latency() << std::endl;
   }
 private:
+  long node_sum;
   alex_t *alex_;
 };
 
