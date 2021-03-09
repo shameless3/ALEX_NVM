@@ -362,6 +362,7 @@ public:
     int count = 0;
     value = *(alex_->get_payload(key,&count));
     node_sum += count;
+    std::cout << "count :" << count << "sum :" << node_sum << endl;
     // assert(value == key);
     return 1;
   }
