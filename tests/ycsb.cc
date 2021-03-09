@@ -287,6 +287,7 @@ public:
 
   void Info()
   {
+    
   }
 
   int Put(uint64_t key, uint64_t value) 
@@ -348,8 +349,6 @@ public:
   void Info()
   {
     NVM::show_stat();
-    double avg = node_sum / 100;
-    std::cout << "avg count:" << avg << endl;
   }
 
   int Put(uint64_t key, uint64_t value) 
@@ -359,10 +358,7 @@ public:
   }
   int Get(uint64_t key, uint64_t &value)
   {
-    int count = 0;
     value = *(alex_->get_payload(key,&count));
-    node_sum += count;
-    std::cout << "count :" << count << "sum :" << node_sum << endl;
     // assert(value == key);
     return 1;
   }
@@ -388,7 +384,6 @@ public:
     // std::cerr << "Clevel average cost: " << Common::timers["Clevel_times"].avg_latency() << std::endl;
   }
 private:
-  long node_sum;
   alex_t *alex_;
 };
 
@@ -455,7 +450,9 @@ int main(int argc, const char *argv[])
       db = new XIndexDb();
     } else if(dbName == "alex") {
       db = new AlexDB();
-    } else {
+    } else if(dbName == "stx") {
+      db = new StxDB();
+    }else {
       db = new ComboTreeDb();
     }
     db->Init();
