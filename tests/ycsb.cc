@@ -348,7 +348,7 @@ public:
   void Info()
   {
     NVM::show_stat();
-    double avg = node_sum / 1000000;
+    double avg = node_sum / 100;
     std::cout << "avg count:" << avg << endl;
   }
 
