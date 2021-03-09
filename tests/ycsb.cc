@@ -348,7 +348,7 @@ public:
   void Info()
   {
     NVM::show_stat();
-    double avg = sum / 1000000;
+    double avg = node_sum / 1000000;
     std::cout << "avg count:" << avg << endl;
   }
 
@@ -361,7 +361,7 @@ public:
   {
     int count = 0;
     value = *(alex_->get_payload(key,&count));
-    sum += count;
+    node_sum += count;
     // assert(value == key);
     return 1;
   }
