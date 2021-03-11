@@ -352,7 +352,7 @@ public:
     NVM::show_stat();
     //加载完数据的树高
     int tree_h = 0;
-    alex::Alex::NodeIterator node_it = alex::Alex::NodeIterator(alex_);
+    alex::Alex.NodeIterator node_it = alex::Alex.NodeIterator(alex_);
     for(; !node_it.is_end();node_it.next()) {
       if(node_it.current().level_ > tree_h){
         tree_h = node_it.current().level_
