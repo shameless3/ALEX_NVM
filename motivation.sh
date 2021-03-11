@@ -54,5 +54,6 @@ function OperateDiffDB2() {
 # OperateDiffDB2
 # ${ExecDir}/ycsb -db pgm -threads 1 -P $InsertRatioDir
 # ${ExecDir}/ycsb -db xindex -threads 1 -P $InsertRatioDir
-# ${ExecDir}/ycsb -db alex -threads 1 -P $InsertRatioDir
-${ExecDir}/ycsb -db stx -threads 1 -P $InsertRatioDir
+${ExecDir}/ycsb -db alex -threads 1 -P $InsertRatioDir
+# ${ExecDir}/ycsb -db stx -threads 1 -P $InsertRatioDir
+# ${ExecDir}/ycsb -db fastfair -threads 1 -P $InsertRatioDir

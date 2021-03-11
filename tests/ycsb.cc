@@ -28,7 +28,8 @@ const char *workloads[] = {
   // "workloadd.spec",
   // "workloade.spec",
   // "workloadf.spec",
-  "workloada_insert_0.spec",
+  //"workloada_insert_0.spec",
+  "workloada_insert_0_mini.spec",
   //"workloada_insert_0_150m.spec",
   //"workloada_insert_0_200m.spec",
   //"workloada_insert_10.spec",
@@ -349,6 +350,15 @@ public:
   void Info()
   {
     NVM::show_stat();
+    //加载完数据的树高
+    int tree_h = 0;
+    alex::Alex::NodeIterator node_it = alex::Alex::NodeIterator(alex_);
+    for(; !node_it.is_end();node_it.next()) {
+      if(node_it.current().level_ > tree_h){
+        tree_h = node_it.current().level_
+      }
+    }
+    cout << "tree_h = " << tree_h << endl;
   }
 
   int Put(uint64_t key, uint64_t value) 
