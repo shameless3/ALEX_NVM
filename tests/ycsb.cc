@@ -67,6 +67,7 @@ public:
     void Info()
     {
       NVM::show_stat();
+      tree_.PrintInfo();
     }
 
     void Close() { 
