@@ -328,28 +328,46 @@ class Alex {
   }
 
  private:
-  // Deep copy of tree starting at given node
-  AlexNode<T, P>* copy_tree_recursive(const AlexNode<T, P>* node) {
-    if (!node) return nullptr;
-    if (node->is_leaf_) {
-      return new (data_node_allocator().allocate(1))
-          data_node_type(*static_cast<const data_node_type*>(node));
-    } else {
-      auto node_copy = new (model_node_allocator().allocate(1))
-          model_node_type(*static_cast<const model_node_type*>(node));
-      int cur = 0;
-      while (cur < node_copy->num_children_) {
-        AlexNode<T, P>* child_node = node_copy->children_[cur];
-        AlexNode<T, P>* child_node_copy = copy_tree_recursive(child_node);
-        int repeats = 1 << child_node_copy->duplication_factor_;
-        for (int i = cur; i < cur + repeats; i++) {
-          node_copy->children_[i] = child_node_copy;
-        }
-        cur += repeats;
+   // wjy: get tree_h
+  void PrintInfo(){
+    int tree_h = 0;
+    for (NodeIterator node_it = NodeIterator(this); !node_it.is_end();node_it.next()) {
+      if(node_it.current().level_ > tree_h){
+        tree_h = node_it.current().level_;
       }
-      NVM::Mem_persist(node_copy, sizeof(model_node_type));
-      return node_copy;
     }
+    printf("tree_h = %d\n", tree_h);
+  }
+   
+   // Deep copy of tree starting at given node
+   AlexNode<T, P> *copy_tree_recursive(const AlexNode<T, P> *node)
+   {
+     if (!node)
+       return nullptr;
+     if (node->is_leaf_)
+     {
+       return new (data_node_allocator().allocate(1))
+           data_node_type(*static_cast<const data_node_type *>(node));
+     }
+     else
+     {
+       auto node_copy = new (model_node_allocator().allocate(1))
+           model_node_type(*static_cast<const model_node_type *>(node));
+       int cur = 0;
+       while (cur < node_copy->num_children_)
+       {
+         AlexNode<T, P> *child_node = node_copy->children_[cur];
+         AlexNode<T, P> *child_node_copy = copy_tree_recursive(child_node);
+         int repeats = 1 << child_node_copy->duplication_factor_;
+         for (int i = cur; i < cur + repeats; i++)
+         {
+           node_copy->children_[i] = child_node_copy;
+         }
+         cur += repeats;
+       }
+       NVM::Mem_persist(node_copy, sizeof(model_node_type));
+       return node_copy;
+     }
   }
 
  public:

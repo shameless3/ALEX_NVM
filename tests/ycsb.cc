@@ -352,14 +352,7 @@ public:
   {
     NVM::show_stat();
     //加载完数据的树高
-    int tree_h = 0;
-    alex::NodeIterator node_it = alex::NodeIterator(alex_);
-    for(; !node_it.is_end();node_it.next()) {
-      if(node_it.current().level_ > tree_h){
-        tree_h = node_it.current().level_
-      }
-    }
-    cout << "tree_h = " << tree_h << endl;
+    alex_->PrintInfo();
   }
 
   int Put(uint64_t key, uint64_t value) 
