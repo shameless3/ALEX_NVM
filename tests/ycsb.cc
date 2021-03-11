@@ -29,9 +29,11 @@ const char *workloads[] = {
   // "workloade.spec",
   // "workloadf.spec",
   //"workloada_insert_0.spec",
-  "workloada_insert_0_mini.spec",
+  "workloada_insert_0_zipfian.spec",
+  //"workloada_insert_0_mini.spec",
   //"workloada_insert_0_150m.spec",
   //"workloada_insert_0_200m.spec",
+  "workloada_insert_0_200m_zipfian.spec"
   //"workloada_insert_10.spec",
   //"workloada_insert_20.spec",
   //"workloada_insert_30.spec",
