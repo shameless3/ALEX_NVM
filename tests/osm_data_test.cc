@@ -15,9 +15,9 @@
 #include "alex/alex.h"
 #include "stx/btree_map.h"
 
-#define LOAD_NUM 200000000;
-#define WORK_NUM 1000000;
-#define MAX_LAT 1000000000;
+#define LOAD_NUM 200000000
+#define WORK_NUM 1000000
+#define MAX_LAT 1000000000
 
 using namespace std;
 using std::random_shuffle;
