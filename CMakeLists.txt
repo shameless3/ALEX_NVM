@@ -179,3 +179,7 @@ add_test(microbench microbench)
 add_executable(ycsb tests/ycsb.cc)
 target_link_libraries(ycsb combotree)
 add_test(ycsb ycsb)
+
+## osm_test
+add_executable(osm_test tests/osm_data_test.cc)
+add_test(osm_test osm_test)

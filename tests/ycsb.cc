@@ -20,7 +20,6 @@ using FastFair::btree;
 using namespace std;
 using xindex::XIndex;
 
-
 const char *workloads[] = {
   // "workloada.spec",
   // "workloadb.spec",
