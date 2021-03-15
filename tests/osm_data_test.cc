@@ -292,14 +292,14 @@ private:
 };
 
 int load_data(){
-  string data_path = "../../asia_200m_outfile.csv";
+  string data_path = "/home/wjy/asia_200m_outfile.csv";
   ifstream inf;
   //使key为uint64_t类型
   const int mul = 1e7;
   const int add = 13 * mul;
   inf.open(data_path);
   if(!inf){
-    cerr << "can not open thie file" << endl;
+    cerr << "can not open this file" << endl;
     return 0;
   }
   string line;
