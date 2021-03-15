@@ -182,4 +182,5 @@ add_test(ycsb ycsb)
 
 ## osm_test
 add_executable(osm_test tests/osm_data_test.cc)
+target_link_libraries(osm_test combotree)
 add_test(osm_test osm_test)
