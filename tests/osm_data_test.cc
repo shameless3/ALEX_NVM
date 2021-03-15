@@ -333,7 +333,7 @@ int gen_data(){
   return 0;
 }
 
-int run_test(KvDB * db){
+int run_test(KvDB * db,string dbname){
   utils::Timer<double> timer;
   timer.Start();
   for (int i = 0; i < WORK_NUM;i++){
@@ -346,7 +346,7 @@ int run_test(KvDB * db){
   }
   double duration = timer.End();
   cout << "# Transaction throughput (KTPS)" << endl;
-  cout << props["dbname"] << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
+  cout << dbname << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
   cout << WORK_NUM / duration / 1000 << endl << endl;
   return 0;
 }
@@ -415,7 +415,7 @@ int main(int argc, const char *argv[])
       db = new FastFairDb();
       db->Init();
       db->Info();
-      run_test(db);
+      run_test(db,dbName);
       delete db;
       NVM::env_exit();
 
@@ -423,7 +423,7 @@ int main(int argc, const char *argv[])
       db = new PGMDynamicDb();
       db->Init();
       db->Info();
-      run_test(db);
+      run_test(db,dbName);
       delete db;
       NVM::env_exit();
       NVM::env_init();
@@ -431,7 +431,7 @@ int main(int argc, const char *argv[])
       db = new XIndexDb();
       db->Init();
       db->Info();
-      run_test(db);
+      run_test(db,dbName);
       delete db;
       NVM::env_exit();
       NVM::env_init();
@@ -439,14 +439,14 @@ int main(int argc, const char *argv[])
       db = new AlexDB();
       db->Init();
       db->Info();
-      run_test(db);
+      run_test(db,dbName);
       delete db;
       NVM::env_exit();
       return 0;
     }
     db->Init();
     db->Info();
-    run_test(db);
+    run_test(db,dbName);
     delete db;
     NVM::env_exit();
     return 0;
