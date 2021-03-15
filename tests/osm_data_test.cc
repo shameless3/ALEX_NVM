@@ -300,7 +300,7 @@ int load_data(){
   inf.open(data_path);
   if(!inf){
     cerr << "can not open thie file" << endl;
-    return;
+    return 0;
   }
   string line;
   while(getline(inf,line)){
@@ -339,7 +339,7 @@ int run_test(KvDB * db){
   for (int i = 0; i < WORK_NUM;i++){
     if(work_[i].first == 0){
       uint64_t tmp_value;
-      db->Get(work_[i].first, &tmp_value);
+      db->Get(work_[i].first, tmp_value);
     }else{
       db->Put(work_[i].first, work_[i].second);
     }
@@ -349,6 +349,17 @@ int run_test(KvDB * db){
   cout << props["dbname"] << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
   cout << WORK_NUM / duration / 1000 << endl << endl;
   return 0;
+}
+
+void UsageMessage(const char *command) {
+  cout << "Usage: " << command << " [options]" << endl;
+  cout << "Options:" << endl;
+  cout << "  -db dbname: specify the name of the DB to use (default: basic)" << endl;
+  cout << "  -read : read " << endl;
+}
+
+inline bool StrStartWith(const char *str, const char *pre) {
+  return strncmp(str, pre, strlen(pre)) == 0;
 }
 
 string ParseCommandLine(int argc, const char *argv[]) {
@@ -363,8 +374,7 @@ string ParseCommandLine(int argc, const char *argv[]) {
       }
       dbname = argv[argindex];
       argindex++;
-    }else if(argindex<argc && StrStartWith(argv[argindex],"-")){
-    if (strcmp(argv[argindex], "-read") == 0) {
+    }else if (strcmp(argv[argindex], "-read") == 0) {
       argindex++;
       if (argindex >= argc) {
         UsageMessage(argv[0]);
@@ -376,23 +386,11 @@ string ParseCommandLine(int argc, const char *argv[]) {
       cout << "Unknown option '" << argv[argindex] << "'" << endl;
       exit(0);
     }
-  }
   if (argindex == 1 || argindex != argc) {
     UsageMessage(argv[0]);
     exit(0);
   }
   return dbname;
-}
-
-void UsageMessage(const char *command) {
-  cout << "Usage: " << command << " [options]" << endl;
-  cout << "Options:" << endl;
-  cout << "  -db dbname: specify the name of the DB to use (default: basic)" << endl;
-  cout << "  -read : read " << endl;
-}
-
-inline bool StrStartWith(const char *str, const char *pre) {
-  return strncmp(str, pre, strlen(pre)) == 0;
 }
 
 int main(int argc, const char *argv[])
