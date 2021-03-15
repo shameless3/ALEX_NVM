@@ -386,6 +386,7 @@ string ParseCommandLine(int argc, const char *argv[]) {
       cout << "Unknown option '" << argv[argindex] << "'" << endl;
       exit(0);
     }
+  }
   if (argindex == 1 || argindex != argc) {
     UsageMessage(argv[0]);
     exit(0);
@@ -393,8 +394,7 @@ string ParseCommandLine(int argc, const char *argv[]) {
   return dbname;
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]){
     NVM::env_init();
     KvDB *db = nullptr;
     string dbName = ParseCommandLine(argc, argv);
