@@ -15,9 +15,9 @@
 #include "alex/alex.h"
 #include "stx/btree_map.h"
 
-#define LOAD_NUM = 200000000;
-#define WORK_NUM = 1000000;
-#define MAX_LAT = 1000000000;
+#define LOAD_NUM 200000000;
+#define WORK_NUM 1000000;
+#define MAX_LAT 1000000000;
 
 using namespace std;
 using std::random_shuffle;
@@ -322,7 +322,7 @@ int gen_data(){
   int insert_num = WORK_NUM - read_num;
   for (int i = 0; i < read_num ;i++){
     uint64_t tmp_pos = rand() % LOAD_NUM;
-    work_.push_back(make_pair(0, load_[tmp_pos]));
+    work_.push_back(make_pair(0, load_[tmp_pos].first));
   }
   for (int i = 0; i < insert_num;i++){
     uint64_t tmp_key = (rand() % MAX_LAT) + 1;
@@ -349,6 +349,50 @@ int run_test(KvDB * db){
   cout << props["dbname"] << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
   cout << WORK_NUM / duration / 1000 << endl << endl;
   return 0;
+}
+
+string ParseCommandLine(int argc, const char *argv[]) {
+  string dbname;
+  int argindex = 1;
+  while (argindex < argc && StrStartWith(argv[argindex], "-")) {
+    if (strcmp(argv[argindex], "-db") == 0) {
+      argindex++;
+      if (argindex >= argc) {
+        UsageMessage(argv[0]);
+        exit(0);
+      }
+      dbname = argv[argindex];
+      argindex++;
+    }else if(argindex<argc && StrStartWith(argv[argindex],"-")){
+    if (strcmp(argv[argindex], "-read") == 0) {
+      argindex++;
+      if (argindex >= argc) {
+        UsageMessage(argv[0]);
+        exit(0);
+      }
+      read_prop = std::stoi(argv[argindex]);
+      argindex++;
+    } else {
+      cout << "Unknown option '" << argv[argindex] << "'" << endl;
+      exit(0);
+    }
+  }
+  if (argindex == 1 || argindex != argc) {
+    UsageMessage(argv[0]);
+    exit(0);
+  }
+  return dbname;
+}
+
+void UsageMessage(const char *command) {
+  cout << "Usage: " << command << " [options]" << endl;
+  cout << "Options:" << endl;
+  cout << "  -db dbname: specify the name of the DB to use (default: basic)" << endl;
+  cout << "  -read : read " << endl;
+}
+
+inline bool StrStartWith(const char *str, const char *pre) {
+  return strncmp(str, pre, strlen(pre)) == 0;
 }
 
 int main(int argc, const char *argv[])
@@ -410,46 +454,3 @@ int main(int argc, const char *argv[])
     return 0;
 }
 
-string ParseCommandLine(int argc, const char *argv[]) {
-  string dbname;
-  int argindex = 1;
-  while (argindex < argc && StrStartWith(argv[argindex], "-")) {
-    if (strcmp(argv[argindex], "-db") == 0) {
-      argindex++;
-      if (argindex >= argc) {
-        UsageMessage(argv[0]);
-        exit(0);
-      }
-      dbname = argv[argindex];
-      argindex++;
-    }else if(argindex<argc && StrStartWith(argv[argindex],"-")){
-    if (strcmp(argv[argindex], "-read") == 0) {
-      argindex++;
-      if (argindex >= argc) {
-        UsageMessage(argv[0]);
-        exit(0);
-      }
-      read_prop = std::stoi(argv[argindex]);
-      argindex++;
-    } else {
-      cout << "Unknown option '" << argv[argindex] << "'" << endl;
-      exit(0);
-    }
-  }
-  if (argindex == 1 || argindex != argc) {
-    UsageMessage(argv[0]);
-    exit(0);
-  }
-  return dbname;
-}
-
-void UsageMessage(const char *command) {
-  cout << "Usage: " << command << " [options]" << endl;
-  cout << "Options:" << endl;
-  cout << "  -db dbname: specify the name of the DB to use (default: basic)" << endl;
-  cout << "  -read : read " << endl;
-}
-
-inline bool StrStartWith(const char *str, const char *pre) {
-  return strncmp(str, pre, strlen(pre)) == 0;
-}
