@@ -442,6 +442,7 @@ int main(int argc, const char *argv[]){
       db = new FastFairDb();
       db->Init();
       db->Info();
+      load_db(db);
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -450,6 +451,7 @@ int main(int argc, const char *argv[]){
       db = new PGMDynamicDb();
       db->Init();
       db->Info();
+      load_db(db);
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -458,6 +460,7 @@ int main(int argc, const char *argv[]){
       db = new XIndexDb();
       db->Init();
       db->Info();
+      load_db(db);
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -466,6 +469,7 @@ int main(int argc, const char *argv[]){
       db = new AlexDB();
       db->Init();
       db->Info();
+      load_db(db);
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -473,6 +477,7 @@ int main(int argc, const char *argv[]){
     }
     db->Init();
     db->Info();
+    load_db(db);
     run_test(db,dbName);
     delete db;
     NVM::env_exit();
