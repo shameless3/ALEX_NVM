@@ -314,6 +314,10 @@ int load_data(){
   }
   inf.close();
   cout << "load data:" << load_.size() << endl;
+  cout << "part of load_" << endl:
+  for(int i = 0;i<5;i++){
+    cout << load_[i].first << '\t' << load_[i].second << endl;
+  }
   return 0;
 }
 
@@ -332,6 +336,9 @@ int gen_data(){
   }
   random_shuffle(work_.begin(), work_.end());
   cout << "generate work data :" << work_.size() << endl;
+  for(int i = 0;i<5;i++){
+    cout << work_[i].first << '\t' << work_[i].second << endl;
+  }
   return 0;
 }
 
