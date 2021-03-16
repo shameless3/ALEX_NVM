@@ -25,9 +25,11 @@ using FastFair::btree;
 using xindex::XIndex;
 
 // 保存初始的加载数据
-vector<pair<uint64_t, uint64_t>> load_(LOAD_NUM);
+vector<pair<uint64_t, uint64_t>> load_;
+load_.reserve(LOAD_NUM);
 // 保存生成的负载，pair的第一个值为0为read，否则为insert
-vector<pair<uint64_t, uint64_t>> work_(WORK_NUM);
+vector<pair<uint64_t, uint64_t>> work_;
+work_.reserve(WORK_NUM);
 // 读比例（0~10）
 int read_prop = 0;
 // copy from ycsb
@@ -314,7 +316,7 @@ int load_data(){
   }
   inf.close();
   cout << "load data:" << load_.size() << endl;
-  cout << "part of load_" << endl:
+  cout << "part of load_" << endl;
   for(int i = 0;i<5;i++){
     cout << load_[i].first << '\t' << load_[i].second << endl;
   }
