@@ -343,7 +343,7 @@ int run_test(KvDB * db,string dbname){
   for (int i = 0; i < WORK_NUM;i++){
     if(work_[i].first == 0){
       uint64_t tmp_value;
-      db->Get(work_[i].first, tmp_value);
+      db->Get(work_[i].second, tmp_value);
       cout << "get error" << endl;
     }else{
       db->Put(work_[i].first, work_[i].second);
