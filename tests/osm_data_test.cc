@@ -313,6 +313,7 @@ int load_data(){
     load_.push_back(make_pair(lat, lon));
   }
   inf.close();
+  cout << "load data:" << load_.size() << endl;
   return 0;
 }
 
@@ -330,21 +331,28 @@ int gen_data(){
     work_.push_back(make_pair(tmp_key, tmp_value));
   }
   random_shuffle(work_.begin(), work_.end());
+  cout << "generate work data :" << work_.size() << endl;
   return 0;
 }
 
 int run_test(KvDB * db,string dbname){
   utils::Timer<double> timer;
+  cout << "timer" << endl;
   timer.Start();
+  cout << "timer1" << endl;
   for (int i = 0; i < WORK_NUM;i++){
     if(work_[i].first == 0){
       uint64_t tmp_value;
       db->Get(work_[i].first, tmp_value);
+      cout << "get error" << endl;
     }else{
       db->Put(work_[i].first, work_[i].second);
+      cout << "put error" << endl;
     }
   }
+  cout << "timer2" << endl;
   double duration = timer.End();
+  cout << "timer3" << endl;
   cout << "# Transaction throughput (KTPS)" << endl;
   cout << dbname << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
   cout << WORK_NUM / duration / 1000 << endl << endl;
@@ -355,7 +363,7 @@ void UsageMessage(const char *command) {
   cout << "Usage: " << command << " [options]" << endl;
   cout << "Options:" << endl;
   cout << "  -db dbname: specify the name of the DB to use (default: basic)" << endl;
-  cout << "  -read : read " << endl;
+  cout << "  -read : read proption(0~10)" << endl;
 }
 
 inline bool StrStartWith(const char *str, const char *pre) {
