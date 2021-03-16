@@ -26,10 +26,8 @@ using xindex::XIndex;
 
 // 保存初始的加载数据
 vector<pair<uint64_t, uint64_t>> load_;
-load_.reserve(LOAD_NUM);
 // 保存生成的负载，pair的第一个值为0为read，否则为insert
 vector<pair<uint64_t, uint64_t>> work_;
-work_.reserve(WORK_NUM);
 // 读比例（0~10）
 int read_prop = 0;
 // copy from ycsb
@@ -416,6 +414,8 @@ int main(int argc, const char *argv[]){
     KvDB *db = nullptr;
     string dbName = ParseCommandLine(argc, argv);
     //加载数据
+    load_.reserve(LOAD_NUM);
+    work_.reserve(WORK_NUM);
     load_data();
     //生成负载
     gen_data();
