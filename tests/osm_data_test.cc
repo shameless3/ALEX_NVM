@@ -347,7 +347,7 @@ int load_db(KvDB * db){
   cout << "loading..." << endl;
   for (int i = 0; i < load_.size();i++){
     db->Put(load_[i].first, load_[i].second);
-    if(i %10000 == 0){
+    if(i %1000000 == 0){
       cout << i << endl;
     }
   }
@@ -357,23 +357,19 @@ int load_db(KvDB * db){
 
 int run_test(KvDB * db,string dbname){
   utils::Timer<double> timer;
-  cout << "timer" << endl;
   timer.Start();
-  cout << "timer1" << endl;
   for (int i = 0; i < WORK_NUM;i++){
     if(work_[i].first == 0){
       uint64_t tmp_value;
       db->Get(work_[i].second, tmp_value);
-      cout << "get error" << endl;
+      //cout << "get error" << endl;
     }else{
       db->Put(work_[i].first, work_[i].second);
-      cout << "put error" << endl;
+      //cout << "put error" << endl;
     }
   }
-  cout << "timer2" << endl;
   double duration = timer.End();
-  cout << "timer3" << endl;
-  cout << "# Transaction throughput (KTPS)" << endl;
+  cout << "# throughput (KTPS)" << endl;
   cout << dbname << '\t' << "load num:" << LOAD_NUM << '\t' << "OP num:" << WORK_NUM << '\t';
   cout << WORK_NUM / duration / 1000 << endl << endl;
   return 0;
