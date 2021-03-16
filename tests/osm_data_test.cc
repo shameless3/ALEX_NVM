@@ -347,6 +347,9 @@ int load_db(KvDB * db){
   cout << "loading..." << endl;
   for (int i = 0; i < load_.size();i++){
     db->Put(load_[i].first, load_[i].second);
+    while(i %10000 == 0){
+      cout << i << endl;
+    }
   }
   cout << "loaded in db" << endl;
   return 0;
@@ -441,8 +444,8 @@ int main(int argc, const char *argv[]){
     }else if(dbName == "all"){
       db = new FastFairDb();
       db->Init();
-      db->Info();
       load_db(db);
+      db->Info();
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -450,8 +453,8 @@ int main(int argc, const char *argv[]){
       NVM::env_init();
       db = new PGMDynamicDb();
       db->Init();
-      db->Info();
       load_db(db);
+      db->Info();
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -459,8 +462,8 @@ int main(int argc, const char *argv[]){
 
       db = new XIndexDb();
       db->Init();
-      db->Info();
       load_db(db);
+      db->Info();
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -468,16 +471,16 @@ int main(int argc, const char *argv[]){
 
       db = new AlexDB();
       db->Init();
-      db->Info();
       load_db(db);
+      db->Info();
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
       return 0;
     }
     db->Init();
-    db->Info();
     load_db(db);
+    db->Info();
     run_test(db,dbName);
     delete db;
     NVM::env_exit();
