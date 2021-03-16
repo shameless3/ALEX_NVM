@@ -342,6 +342,16 @@ int gen_data(){
   return 0;
 }
 
+int load_db(KvDB * db){
+  // 存入db
+  cout << "loading..." << endl;
+  for (int i = 0; i < load_.size();i++){
+    db->Put(load_[i].first, load_[i].second);
+  }
+  cout << "loaded in db" << endl;
+  return 0;
+}
+
 int run_test(KvDB * db,string dbname){
   utils::Timer<double> timer;
   cout << "timer" << endl;
