@@ -346,7 +346,7 @@ int load_db(KvDB * db){
   // 存入db
   cout << "loading..." << endl;
   for (int i = 0; i < load_.size();i++){
-    if(i>=130000 && i<= 140000){
+    if(i%100000){
       cout << load_[i].first << load_[i].second << endl;
       cout << i << endl;
     }
