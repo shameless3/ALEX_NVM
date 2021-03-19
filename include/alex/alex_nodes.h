@@ -289,8 +289,8 @@ class AlexModelNode : public AlexNode<T, P> {
 * - Stats
 * - Debugging
 */
-template <class T, class P, class Compare = AlexCompare,
           class Alloc = std::allocator<std::pair<T, P>>,
+template <class T, class P, class Compare = AlexCompare,
           bool allow_duplicates = true>
 class AlexDataNode : public AlexNode<T, P> {
  public:
