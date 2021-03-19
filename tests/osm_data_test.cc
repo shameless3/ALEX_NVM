@@ -345,6 +345,7 @@ int gen_data(){
 int load_db(KvDB * db){
   // 存入db
   cout << "loading..." << endl;
+  /*
   for (int i = 0; i < load_.size();i++){
     if(i == 138961){
       continue;
@@ -353,6 +354,13 @@ int load_db(KvDB * db){
       cout << load_[i].first << load_[i].second << endl;
       cout << i << endl;
     }
+    db->Put(load_[i].first, load_[i].second);
+  }
+  */
+  for (int i = 0; i < 138960;i++){
+    db->Put(load_[i].first, load_[i].second);
+  }
+  for (int i = 138960; i < load_.size();i++){
     db->Put(load_[i].first, load_[i].second);
   }
   cout << "loaded in db" << endl;
