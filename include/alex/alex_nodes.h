@@ -510,7 +510,6 @@ class AlexDataNode : public AlexNode<T, P> {
     int bitmap_pos = pos >> 6;
     int bit_pos = pos - (bitmap_pos << 6);
     bitmap_[bitmap_pos] &= ~(1ULL << bit_pos);
-    NVM::Mem_persist(&bitmap_[bitmap_pos], sizeof(uint64_t));
   }
 
   // Value of first (i.e., min) key
@@ -1740,7 +1739,7 @@ class AlexDataNode : public AlexNode<T, P> {
       num_left_out_of_bounds_inserts_++;
     }
 
-    NVM::Mem_persist(this, CACHE_LINE_SIZE);
+    NVM::Mem_persist(this, sizeof(AlexDataNode));
     return {0, insertion_position};
   }
 
@@ -2179,8 +2178,6 @@ class AlexDataNode : public AlexNode<T, P> {
       resize(kMaxDensity_);  // contract
       num_resizes_++;
     }
-
-    NVM::Mem_persist(&num_keys_, sizeof(uint64_t));
   }
 
   // Erase all keys with the input value
@@ -2213,8 +2210,6 @@ class AlexDataNode : public AlexNode<T, P> {
       resize(kMaxDensity_);  // contract
       num_resizes_++;
     }
-    
-    NVM::Mem_persist(this, CACHE_LINE_SIZE);
     return num_erased;
   }
 
@@ -2253,7 +2248,6 @@ class AlexDataNode : public AlexNode<T, P> {
       resize(kMaxDensity_);  // contract
       num_resizes_++;
     }
-    NVM::Mem_persist(&num_keys_, sizeof(uint64_t));
     return num_erased;
   }
 
