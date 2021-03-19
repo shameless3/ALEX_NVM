@@ -339,37 +339,28 @@ class Alex {
   }
 
  private:
-   
-   
-   // Deep copy of tree starting at given node
-   AlexNode<T, P> *copy_tree_recursive(const AlexNode<T, P> *node)
-   {
-     if (!node)
-       return nullptr;
-     if (node->is_leaf_)
-     {
-       return new (data_node_allocator().allocate(1))
-           data_node_type(*static_cast<const data_node_type *>(node));
-     }
-     else
-     {
-       auto node_copy = new (model_node_allocator().allocate(1))
-           model_node_type(*static_cast<const model_node_type *>(node));
-       int cur = 0;
-       while (cur < node_copy->num_children_)
-       {
-         AlexNode<T, P> *child_node = node_copy->children_[cur];
-         AlexNode<T, P> *child_node_copy = copy_tree_recursive(child_node);
-         int repeats = 1 << child_node_copy->duplication_factor_;
-         for (int i = cur; i < cur + repeats; i++)
-         {
-           node_copy->children_[i] = child_node_copy;
-         }
-         cur += repeats;
-       }
-       NVM::Mem_persist(node_copy, sizeof(model_node_type));
-       return node_copy;
-     }
+  // Deep copy of tree starting at given node
+  AlexNode<T, P>* copy_tree_recursive(const AlexNode<T, P>* node) {
+    if (!node) return nullptr;
+    if (node->is_leaf_) {
+      return new (data_node_allocator().allocate(1))
+          data_node_type(*static_cast<const data_node_type*>(node));
+    } else {
+      auto node_copy = new (model_node_allocator().allocate(1))
+          model_node_type(*static_cast<const model_node_type*>(node));
+      int cur = 0;
+      while (cur < node_copy->num_children_) {
+        AlexNode<T, P>* child_node = node_copy->children_[cur];
+        AlexNode<T, P>* child_node_copy = copy_tree_recursive(child_node);
+        int repeats = 1 << child_node_copy->duplication_factor_;
+        for (int i = cur; i < cur + repeats; i++) {
+          node_copy->children_[i] = child_node_copy;
+        }
+        cur += repeats;
+      }
+      NVM::Mem_persist(node_copy, sizeof(model_node_type));
+      return node_copy;
+    }
   }
 
  public:
@@ -1006,10 +997,7 @@ class Alex {
   // Returns null pointer if there is no exact match of the key
   P* get_payload(const T& key) const {
     stats_.num_lookups++;
-    //wjy : 统计访问节点个数
-    // std::vector<TraversalNode> traversal_path;
     data_node_type* leaf = get_leaf(key);
-    //*node_count = traversal_path.size()-1;
     int idx = leaf->find_key(key);
     if (idx < 0) {
       return nullptr;
