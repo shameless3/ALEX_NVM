@@ -8,16 +8,16 @@ readrates="0 1 2 3 4 5 6 7 8 9 10"
 function OperateDiffDB(){
     for readrate in $readrates
     do 
-        # ${ExecDir}/osm_test -db all -read $readrate
         echo "read rate:$readrate"
-        ${ExecDir}/osm_test -db fastfair -read $readrate
-        ${ExecDir}/osm_test -db xindex -read $readrate
-        ${ExecDir}/osm_test -db pgm -read $readrate
+        ${ExecDir}/osm_test -db all -read $readrate
+        #${ExecDir}/osm_test -db fastfair -read $readrate
+        #${ExecDir}/osm_test -db xindex -read $readrate
+        #${ExecDir}/osm_test -db pgm -read $readrate
     done
 }
 
-# OperateDiffDB
-${ExecDir}/osm_test -db alex -read 8
+OperateDiffDB
+# ${ExecDir}/osm_test -db alex -read 8
 
 # all 指 alex fastfair xindex pgm
 # ${ExecDir}/osm_test -db all -read 8
