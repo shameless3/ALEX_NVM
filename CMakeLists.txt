@@ -21,7 +21,7 @@ option(NO_ENTRY_BUF     "BEntry without KVBuffer" OFF)
 # ComboTree Configuration
 # use `make clean && make CXX_DEFINES="-DNAME=VALUE"` to override during compile
 if(SERVER)
-  set(PMEM_DIR              \"/mnt/pmem0_wenduo/wjy/\")
+  set(PMEM_DIR              \"/mnt/pmem0/wjy/\")
   set(CLEVEL_PMEM_FILE_SIZE "(1024*1024*1024*16UL)")
   set(CLEVEL_PMEM_FILE      \"/mnt/pmem0/wjy/combotree-clevel-\")
   set(BLEVEL_PMEM_FILE      \"/mnt/pmem0/wjy/combotree-blevel-\")
