@@ -439,6 +439,7 @@ int main(int argc, const char *argv[]){
       db->Init();
       load_db(db);
       db->Info();
+      dbName = "fastfair";
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -448,6 +449,7 @@ int main(int argc, const char *argv[]){
       db->Init();
       load_db(db);
       db->Info();
+      dbName = "pgm";
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -457,6 +459,7 @@ int main(int argc, const char *argv[]){
       db->Init();
       load_db(db);
       db->Info();
+      dbName = "xindex";
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
@@ -466,6 +469,7 @@ int main(int argc, const char *argv[]){
       db->Init();
       load_db(db);
       db->Info();
+      dbName = "alex";
       run_test(db,dbName);
       delete db;
       NVM::env_exit();
