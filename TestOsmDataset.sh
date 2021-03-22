@@ -17,8 +17,8 @@ function OperateDiffDB(){
     done
 }
 
-OperateDiffDB
-# ${ExecDir}/osm_test -db alex -read 8
+#OperateDiffDB
+${ExecDir}/osm_test -db pgm -read 10
 
 # all 指 alex fastfair xindex pgm
 # ${ExecDir}/osm_test -db all -read 8

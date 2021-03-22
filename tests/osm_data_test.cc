@@ -353,6 +353,7 @@ int load_db(KvDB * db){
 }
 
 int run_test(KvDB * db,string dbname){
+  db->Begin_trans();
   utils::Timer<double> timer;
   timer.Start();
   for (int i = 0; i < WORK_NUM;i++){
