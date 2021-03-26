@@ -383,8 +383,8 @@ public:
         model.init(train_keys.begin(), train_keys.end());
         NVM::Mem_persist(this, sizeof(*this));
         uint64_t expand_time = timer.End();
-        LOG(Debug::INFO, "Finish expanding root model, new groups %ld,  expansion time is %lfs", 
-                nr_groups_, (double)expand_time/1000000.0);
+        //LOG(Debug::INFO, "Finish expanding root model, new groups %ld,  expansion time is %lfs", 
+        //      nr_groups_, (double)expand_time/1000000.0);
     }
 
 #else
@@ -507,8 +507,8 @@ public:
         model.init(train_keys.begin(), train_keys.end());
         NVM::Mem_persist(this, sizeof(*this));
         uint64_t expand_time = timer.End();
-        LOG(Debug::INFO, "Finish expanding root model, new groups %ld,  expansion time is %lfs", 
-                nr_groups_, (double)expand_time/1000000.0);
+        //LOG(Debug::INFO, "Finish expanding root model, new groups %ld,  expansion time is %lfs", 
+        //      nr_groups_, (double)expand_time/1000000.0);
     }
 #endif
 
@@ -540,7 +540,7 @@ public:
             nr_groups_ ++;
             train_keys.push_back(new_group->start_key());
         }
-        LOG(Debug::INFO, "Group count: %d...", nr_groups_);
+        // LOG(Debug::INFO, "Group count: %d...", nr_groups_);
         assert(nr_groups_ <=  max_groups_);
         // model.prepare_model(train_keys, 0, nr_groups_);
         model.init(train_keys.begin(), train_keys.end());
