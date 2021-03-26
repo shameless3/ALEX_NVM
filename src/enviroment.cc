@@ -1,9 +1,11 @@
 #include "nvm_alloc.h"
+#include "statistic.h"
 #include "combotree_config.h"
 #include "common_time.h"
 
 namespace Common {
     std::map<std::string, Common::Statistic> timers;
+    Stat stat;
 }
 
 namespace NVM
@@ -27,7 +29,7 @@ int env_init()
     Common::timers["ABLevel_times"] = Common::Statistic();
     Common::timers["ALevel_times"] = Common::Statistic();
     Common::timers["BLevel_times"] = Common::Statistic();
-    Common::timers["Clevel_times"] = Common::Statistic();
+    Common::timers["CLevel_times"] = Common::Statistic();
     return 0;
 }
 
