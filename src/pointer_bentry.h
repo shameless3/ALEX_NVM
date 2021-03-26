@@ -1172,7 +1172,7 @@ public:
         if(key(sorted_index_[0]) >= split_key) {
             std::cout << "split_key is not the middle key" << std::endl;
         }
-        assert(key(sorted_index_[0]) < split_key);
+        //assert(key(sorted_index_[0]) < split_key);
         next = new (mem->Allocate<UnSortBuncket>()) UnSortBuncket(split_key, prefix_len);
         // int idx = 0;
         prefix_len = 0;

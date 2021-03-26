@@ -383,7 +383,7 @@ int load_data(){
     double lat_d, lon_d;
     sin >> lat_d;
     sin >> lon_d;
-    uint64_t lat = (uint64_t)(lat_d * mul + add) << 32 + (uint64_t)(lon_d * mul);
+    uint64_t lat = (uint64_t)(lat_d * mul + add);
     uint64_t lon = (uint64_t)(lon_d * mul);
     load_.push_back(make_pair(lat, lon));
   }
@@ -406,7 +406,7 @@ int gen_data(){
     work_.push_back(make_pair(load_[tmp_pos].first,0));
   }
   for (int i = 0; i < insert_num;i++){
-    uint64_t tmp_key = (uint64_t) (((double) rand() / RAND_MAX) * max_64);
+    uint64_t tmp_key = (uint64_t) (((double) rand() / RAND_MAX) * MAX_LAT);
     uint64_t tmp_value = rand()+1;//加一为了防止是0
     work_.push_back(make_pair(tmp_key, tmp_value));
   }
