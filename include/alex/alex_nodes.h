@@ -1689,9 +1689,9 @@ class AlexDataNode : public AlexNode<T, P> {
   // -1 if no insertion.
   std::pair<int, int> insert(const T& key, const P& payload) {
     // Periodically check for catastrophe
-    // if (num_inserts_ % 64 == 0 && catastrophic_cost()) {
-    //   return {2, -1};
-    // }
+    if (num_inserts_ % 64 == 0 && catastrophic_cost()) {
+      return {2, -1};
+    }
 
     // Check if node is full (based on expansion_threshold)
     if (num_keys_ >= expansion_threshold_) {

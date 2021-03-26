@@ -1,8 +1,8 @@
 #!/bin/bash
-RecordCount=100000000
+RecordCount=10000000
 OpCount=1000000
-Distribute="uniform"
-WorkLoads="0 10 20 30 40 50 60 70 80 90 100"
+Distribute="zipfian"
+WorkLoads="0 10 20 50 80 100"
 if [ $# -ge 1 ]; then
     RecordCount=$1
 fi
@@ -14,7 +14,6 @@ fi
 for workload in $WorkLoads; do
     sed -r -i "s/recordcount=.*/recordcount=$RecordCount/1" workloada_insert_${workload}.spec
     sed -r -i "s/operationcount=.*/operationcount=$OpCount/1" workloada_insert_${workload}.spec
-    sed -r -i "s/requestdistribution=.*/requestdistribution=$Distribute/1" workloada_insert_${workload}.spec
 done
 
 if [ $# -ge 3 ]; then
