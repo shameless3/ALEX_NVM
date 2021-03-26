@@ -511,7 +511,7 @@ int main(int argc, const char *argv[]){
     } else if(dbName == "alex") {
       db = new AlexDB();
     }else if(dbName == "learngroup"){
-      db = new LearnGroupDB()
+      db = new LearnGroupDB();
     }else if(dbName == "all"){
       db = new FastFairDb();
       db->Init();
