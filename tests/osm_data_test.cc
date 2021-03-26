@@ -294,7 +294,7 @@ private:
   alex_t *alex_;
 };
 
-class LearnGroupDB : public ycsbc::KvDB  {
+class LearnGroupDB : public KvDB  {
   static const size_t init_num = 1000;
   void Prepare() {
     std::vector<std::pair<uint64_t,uint64_t>> initial_kv;
