@@ -383,7 +383,7 @@ int load_data(){
     double lat_d, lon_d;
     sin >> lat_d;
     sin >> lon_d;
-    uint64_t lat = (uint64_t)(lat_d * mul + add);
+    uint64_t lat = (uint64_t)(lat_d * mul + add) << 32 + (uint64_t)(lon_d * mul);
     uint64_t lon = (uint64_t)(lon_d * mul);
     load_.push_back(make_pair(lat, lon));
   }
@@ -400,13 +400,14 @@ int load_data(){
 int gen_data(){
   int read_num = WORK_NUM * read_prop / 10;
   int insert_num = WORK_NUM - read_num;
+  uint64_t max_64 = pow(2, 64) - 1;
   for (int i = 0; i < read_num ;i++){
-    uint64_t tmp_pos = rand() % LOAD_NUM;
-    work_.push_back(make_pair(0, load_[tmp_pos].first));
+    uint64_t tmp_pos = (uint64_t) (((double) rand() / RAND_MAX) * LOAD_NUM);
+    work_.push_back(make_pair(load_[tmp_pos].first,0));
   }
   for (int i = 0; i < insert_num;i++){
-    uint64_t tmp_key = (rand() % MAX_LAT) + 1;
-    uint64_t tmp_value = rand();
+    uint64_t tmp_key = (uint64_t) (((double) rand() / RAND_MAX) * max_64);
+    uint64_t tmp_value = rand()+1;//加一为了防止是0
     work_.push_back(make_pair(tmp_key, tmp_value));
   }
   random_shuffle(work_.begin(), work_.end());
@@ -432,9 +433,9 @@ int run_test(KvDB * db,string dbname){
   utils::Timer<double> timer;
   timer.Start();
   for (int i = 0; i < WORK_NUM;i++){
-    if(work_[i].first == 0){
+    if(work_[i].second == 0){
       uint64_t tmp_value;
-      db->Get(work_[i].second, tmp_value);
+      db->Get(work_[i].first, tmp_value);
       //cout << "get error" << endl;
     }else{
       db->Put(work_[i].first, work_[i].second);
