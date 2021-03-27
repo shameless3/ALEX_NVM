@@ -18,7 +18,7 @@
 #include "../src/learn_group.h"
 #include "random.h"
 
-#define LOAD_NUM 200000000
+#define LOAD_NUM 100000000
 #define WORK_NUM 1000000
 #define MAX_LAT 1000000000
 
@@ -367,7 +367,7 @@ private:
 };
 
 int load_data(){
-  string data_path = "/home/wjy/asia_200m_outfile.csv";
+  string data_path = "/home/wjy/asia_final_outfile.csv";
   ifstream inf;
   //使key为uint64_t类型
   const int mul = 1e7;
@@ -378,7 +378,9 @@ int load_data(){
     return 0;
   }
   string line;
-  while(getline(inf,line)){
+  int i = 0;
+  while(i<LOAD_NUM){
+    getline(inf,line)
     istringstream sin(line);
     double lat_d, lon_d;
     sin >> lat_d;
@@ -386,6 +388,7 @@ int load_data(){
     uint64_t lat = ((uint64_t)(lat_d * mul + add));
     uint64_t lon = (uint64_t)(lon_d * mul);
     load_.push_back(make_pair(lat, lon));
+    i++;
   }
   inf.close();
   cout << "load data:" << load_.size() << endl;
@@ -423,9 +426,9 @@ int load_db(KvDB * db){
   cout << "loading..." << endl;
   for (int i = 0; i < load_.size();i++){
     db->Put(load_[i].first, load_[i].second);
-    if(i%100000 == 0){
-      cout << i << endl;
-    }
+    // if(i%100000 == 0){
+    //   cout << i << endl;
+    // }
   }
   cout << "loaded in db" << endl;
   return 0;
