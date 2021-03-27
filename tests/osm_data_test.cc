@@ -380,7 +380,7 @@ int load_data(){
   string line;
   int i = 0;
   while(i<LOAD_NUM){
-    getline(inf,line)
+    getline(inf, line);
     istringstream sin(line);
     double lat_d, lon_d;
     sin >> lat_d;
