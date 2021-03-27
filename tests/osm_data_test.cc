@@ -393,6 +393,7 @@ int load_data(){
   inf.close();
   cout << "load data:" << load_.size() << endl;
   cout << "part of load_" << endl;
+  random_shuffle(load_.begin(), load_.end());
   for(int i = 0;i<5;i++){
     cout << load_[i].first << '\t' << load_[i].second << endl;
   }
