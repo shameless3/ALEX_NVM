@@ -382,11 +382,9 @@ int load_data(){
   while(i<LOAD_NUM){
     getline(inf, line);
     istringstream sin(line);
-    double lat_d, lon_d;
-    sin >> lat_d;
-    sin >> lon_d;
-    uint64_t lat = ((uint64_t)(lat_d * mul + add));
-    uint64_t lon = (uint64_t)(lon_d * mul);
+    uint64_t lat, lon;
+    sin >> lat;
+    sin >> lon;
     load_.push_back(make_pair(lat, lon));
     i++;
   }
