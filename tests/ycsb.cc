@@ -28,16 +28,16 @@ const char *workloads[] = {
   // "workloade.spec",
   // "workloadf.spec",
   //"workloada_insert_0.spec",
-  "workloada_insert_0_zipfian.spec",
+  //"workloada_insert_0_zipfian.spec",
   //"workloada_insert_0_mini.spec",
   //"workloada_insert_0_150m.spec",
   //"workloada_insert_0_200m.spec",
-  "workloada_insert_0_200m_zipfian.spec"
+  //"workloada_insert_0_200m_zipfian.spec"
   //"workloada_insert_10.spec",
   //"workloada_insert_20.spec",
   //"workloada_insert_30.spec",
   //"workloada_insert_40.spec",
-  //"workloada_insert_50.spec",
+  "workloada_insert_50.spec",
   //"workloada_insert_50_150m.spec",
   //"workloada_insert_50_200m.spec",
   //"workloada_insert_60.spec",
@@ -392,6 +392,77 @@ private:
   alex_t *alex_;
 };
 
+class LearnGroupDB : public ycsbc::KvDB  {
+  static const size_t init_num = 1000;
+  void Prepare() {
+    std::vector<std::pair<uint64_t,uint64_t>> initial_kv;
+    combotree::Random rnd(0, UINT64_MAX - 1);
+    initial_kv.push_back({0, UINT64_MAX});
+    for (uint64_t i = 0; i < init_num - 1; ++i) {
+        uint64_t key = rnd.Next();
+        uint64_t value = rnd.Next();
+        initial_kv.push_back({key, value});
+    }
+    sort(initial_kv.begin(), initial_kv.end());
+    root_->Load(initial_kv);
+  }
+public:
+  LearnGroupDB(): root_(nullptr) {}
+  LearnGroupDB(combotree::RootModel *root): root_(root) {}
+  virtual ~LearnGroupDB() {
+    delete root_;
+  }
+
+  void Init()
+  {
+    NVM::data_init();
+    root_ = new combotree::RootModel();
+    Prepare();
+  }
+
+  void Info()
+  {
+    NVM::show_stat();
+    root_->Info();
+  }
+
+  int Put(uint64_t key, uint64_t value) 
+  {
+    // alex_->insert(key, value);
+    root_->Put(key, value);
+    return 1;
+  }
+  int Get(uint64_t key, uint64_t &value)
+  {
+      root_->Get(key, value);
+      return 1;
+  }
+  int Update(uint64_t key, uint64_t value) {
+      root_->Update(key, value);
+      return 1;
+  }
+  int Scan(uint64_t start_key, int len, std::vector<std::pair<uint64_t, uint64_t>>& results) 
+  {
+    combotree::RootModel::Iter it(root_, start_key);
+    int num_entries = 0;
+    while (num_entries < len && !it.end()) {
+      results.push_back({it.key(), it.value()});
+      num_entries ++;
+      it.next();
+    }
+    return 1;
+  } 
+  void PrintStatic() {
+      // std::cerr << "Alevel average cost: " << Common::timers["ALevel_times"].avg_latency();
+      // std::cerr << ",Blevel average cost: " << Common::timers["BLevel_times"].avg_latency();
+      // std::cerr << ",Clevel average cost: " << Common::timers["CLevel_times"].avg_latency() << std::endl;
+      // Common::timers["ALevel_times"].clear();
+      // Common::timers["BLevel_times"].clear();
+      // Common::timers["CLevel_times"].clear();
+  }
+private:
+  combotree::RootModel *root_;
+};
 
 void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
@@ -457,6 +528,8 @@ int main(int argc, const char *argv[])
       db = new AlexDB();
     } else if(dbName == "stx") {
       db = new StxDB();
+    }else if(dbName == "learngroup") {
+      db = new LearnGroupDB();
     }else {
       db = new ComboTreeDb();
     }
