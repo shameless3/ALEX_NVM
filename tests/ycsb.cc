@@ -14,6 +14,8 @@
 #include "xindex/xindex_impl.h"
 #include "alex/alex.h"
 #include "stx/btree_map.h"
+#include "../src/learn_group.h"
+#include "random.h"
 
 using combotree::ComboTree;
 using FastFair::btree;
