@@ -20,7 +20,7 @@
 
 namespace combotree {
 
-// #define EXPAND_ALL
+#define EXPAND_ALL
 
 static inline int CommonPrefixBytes(uint64_t a, uint64_t b) {
   // the result of clz is undefined if arg is 0
