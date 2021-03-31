@@ -572,6 +572,7 @@ int main(int argc, const char *argv[]){
     load_db(db);
     db->Info();
     run_test(db,dbName);
+    db->Info();
     delete db;
     NVM::env_exit();
     return 0;

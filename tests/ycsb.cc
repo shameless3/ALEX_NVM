@@ -589,6 +589,7 @@ int main(int argc, const char *argv[])
       cout << props["dbname"] << '\t' << workloads[i] << '\t' << num_threads << '\t';
       cout << total_ops / duration / 1000 << endl << endl;
     }
+    db->Info();
     delete db;
     NVM::env_exit();
     return 0;
